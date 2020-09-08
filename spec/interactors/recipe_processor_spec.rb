@@ -17,6 +17,7 @@ describe RecipeProcessor do
     it "serailizes the data so as to include the linked entries" do
       stub_contentfull_service
       recipe_serializer = RecipesSerializer.new(recipes: recipe_raw_data)
+      allow(RecipesSerializer).to receive(:new).and_return(recipe_serializer)
       allow(recipe_serializer).to receive(:to_json).and_call_original
       processor = RecipeProcessor.new
 
