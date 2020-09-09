@@ -35,6 +35,23 @@ describe Recipe do
     end
   end
 
+  describe ".find" do
+    it "finds the recipe with the id that has been passed to it" do
+      attributes = { id: "3w0n", description: "Best food", title: "food",
+                     chef_name: "Eyiowuawi"}
+      store = build_redis_connection
+      datastore = RecipeDataStore.new(db: store)
+      datastore.write(attributes)
+      allow(RecipeDataStore).to receive(:new).and_return(datastore)
+
+      recipe = Recipe.find(attributes[:id])
+
+      expect(recipe.id).to eq(attributes[:id])
+
+      store.flushdb
+    end
+  end
+
   def build_datastore
     RecipeDataStore.new(db: recipe_test_db)
   end

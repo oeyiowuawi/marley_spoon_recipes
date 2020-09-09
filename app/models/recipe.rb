@@ -29,14 +29,25 @@ class Recipe
   end
 
 
-  def self.all
-    store = RecipeDataStore.new
-    store.read_all.map do |recipe|
-      parsed_recipe = JSON.parse(recipe).symbolize_keys
-      binding.pry
-      new(parsed_recipe)
+  class << self
+    def all
+      store = RecipeDataStore.new
+      store.read_all.map do |recipe|
+        parsed_recipe = JSON.parse(recipe).symbolize_keys
+        new(parsed_recipe)
+      end
+    end
+
+    def find(id)
+      store = RecipeDataStore.new
+      raw_data = store.retrieve(id)
+      if raw_data.present?
+        parsed_recipe = JSON.parse(raw_data).symbolize_keys
+        new(parsed_recipe)
+      end
     end
   end
+
 
   private
 

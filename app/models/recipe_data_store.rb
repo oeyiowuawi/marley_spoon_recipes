@@ -15,6 +15,10 @@ class RecipeDataStore
     db.mget(key_store.flatten).compact
   end
 
+  def retrieve(key)
+    db.get(key)
+  end
+
   private
 
   attr_reader :db
