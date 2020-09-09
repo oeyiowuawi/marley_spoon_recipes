@@ -3,6 +3,7 @@ class RecipeProcessor
 
   def initialize
     @contentful_service = ContentfulService.new
+    @recipes = []
   end
 
 
@@ -13,14 +14,17 @@ class RecipeProcessor
 
   private
 
-  attr_reader :contentful_service, :recipes, :raw_recipe
+  attr_reader :contentful_service, :recipes, :raw_recipes
 
   def fetch_recipes
-    @raw_recipe = contentful_service.fetch_recipes
+    @raw_recipes = contentful_service.fetch_recipes
   end
 
   def serialize_recipes
-    @recipes = Recipe.build(@raw_recipe)
+    serializer = RecipesSerializer.new(recipes: @raw_recipes)
+    serializer.each_serialized_recipe do |serialized_recipe|
+      @recipes << Recipe.new(serialized_recipe)
+    end
   end
 
 end
