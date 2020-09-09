@@ -4,11 +4,14 @@ class RecipeDataStore
     @db = db || build_redis_store
   end
 
-  def write(recipe)
-    
+  def write(data)
+    data = data.to_h
+    db.set(data[:id], data.to_json)
   end
 
   private
+
+  attr_reader :db
 
   def build_redis_store
     redis_connection = Redis.new

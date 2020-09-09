@@ -1,9 +1,12 @@
 module RecipeTestData
-  def recipe_test_db
-    OpenStruct.new do
-      def set(_args)
-      end
+  TestDb = Struct.new(:config) do
+    def set(*args)
+      
     end
+  end
+
+  def recipe_test_db
+    TestDb.new("test")
   end
 
   def recipe_raw_data

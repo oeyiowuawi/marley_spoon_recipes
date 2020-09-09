@@ -18,11 +18,6 @@ describe Recipe do
   end
 
   def build_datastore
-    db = OpenStruct.new do
-      def set(_args)
-      end
-    end
-
-    RecipeDataStore.new(db: db)
+    RecipeDataStore.new(db: recipe_test_db)
   end
 end
