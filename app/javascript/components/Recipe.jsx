@@ -41,19 +41,14 @@ class Recipe extends Component {
       <div className="container">
       <h1> {recipe.title} {tags}</h1>
       <hr />
-      <div className="card" >
-        <div className="recipe-image">
-          <img className="card-img-top " src={recipe.photo_url} alt="Card image cap" />
+      <div className="recipe-image">
+        <img className="card-img-top " src={recipe.photo_url} alt="Card image cap" />
 
-        </div>
-        <div className="card-body">
-          <p className="card-text">{recipe.description}</p>
-          {recipe.chef_name.length > 1 ? (<p className="card-text">chef: {recipe.chef_name}</p>) : null}
-          
-          
-        </div>
       </div>
-      
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Description: </strong> {recipe.description} </li>
+        {recipe.chef_name.length > 1 ? (<li class="list-group-item"><strong>Chef's name: </strong> {recipe.chef_name}</li>) : null}
+      </ul>
      </div>
     </>
     )

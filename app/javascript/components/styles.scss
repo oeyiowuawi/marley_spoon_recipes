@@ -10,7 +10,13 @@
 }
 
 .recipe-image {
-  height: 200px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  img {
+    height: 400px;
+    width: auto;
+  }
 }
 
   // .dev-description {
