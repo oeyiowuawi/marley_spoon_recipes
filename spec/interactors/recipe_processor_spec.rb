@@ -4,6 +4,7 @@ describe RecipeProcessor do
 
   describe "#call" do
     it "calls the contentful service" do
+      stub_data_store
       contentful_service = ContentfulService.new
       allow(ContentfulService).to receive(:new).and_return(contentful_service)
       allow(contentful_service).to receive(:fetch_recipes).and_return(recipe_raw_data)
@@ -16,6 +17,7 @@ describe RecipeProcessor do
 
     it "serializes the recipes" do
       stub_contentfull_service
+      stub_data_store
       serializer = RecipesSerializer.new(recipes: recipe_raw_data)
       allow(RecipesSerializer).to receive(:new).and_return(serializer)
       allow(serializer).to receive(:each_serialized_recipe).and_call_original
@@ -28,14 +30,15 @@ describe RecipeProcessor do
 
     it "saves the recipe" do
       stub_contentfull_service
-      recipe = Recipe.new(description: "yummy", title: "Good food")
+      store = RecipeDataStore.new(db: recipe_test_db)
+      recipe = Recipe.new(id: "yu33y", description: "yummy", title: "Good food", datastore: store)
       allow(Recipe).to receive(:new).and_return(recipe)
       allow(recipe).to receive(:save)
-      processor = RecipeProcessor.new(recipes: recipe_raw_data)
+      processor = RecipeProcessor.new
 
       processor.call
 
-      expect(recipe).to receive(:save)
+      expect(recipe).to have_received(:save)
     end
   end
 
@@ -43,6 +46,13 @@ describe RecipeProcessor do
     contentful_service = ContentfulService.new
     allow(ContentfulService).to receive(:new).and_return(contentful_service)
     allow(contentful_service).to receive(:fetch_recipes).and_return(recipe_raw_data)
+  end
+
+
+  def stub_data_store
+    store = RecipeDataStore.new(db: recipe_test_db)
+    recipe = Recipe.new(id: "yu33y", description: "yummy", title: "Good food", datastore: store)
+    allow(Recipe).to receive(:new).and_return(recipe)
   end
 
 end

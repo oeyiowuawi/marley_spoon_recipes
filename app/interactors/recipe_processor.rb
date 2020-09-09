@@ -3,13 +3,13 @@ class RecipeProcessor
 
   def initialize
     @contentful_service = ContentfulService.new
-    @recipes = []
+    @recipe_count = 0 
   end
 
 
   def call
     fetch_recipes
-    serialize_recipes
+    process_recipes
   end
 
   private
@@ -20,10 +20,11 @@ class RecipeProcessor
     @raw_recipes = contentful_service.fetch_recipes
   end
 
-  def serialize_recipes
+  def process_recipes
     serializer = RecipesSerializer.new(recipes: @raw_recipes)
     serializer.each_serialized_recipe do |serialized_recipe|
-      @recipes << Recipe.new(serialized_recipe)
+      Recipe.new(serialized_recipe).save
+      @recipe_count += 1
     end
   end
 

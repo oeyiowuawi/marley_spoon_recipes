@@ -23,7 +23,8 @@ class RecipesSerializer
   attr_reader :raw_recipe_data, :included_entry_data, :included_asset_data
 
   def process(recipe)
-    {
+    { 
+      id: recipe["sys"]["id"],
       description: recipe["fields"]["description"],
       title: recipe["fields"]["title"],
       photo_url: extract_photo_url(recipe["fields"]["photo"]["sys"]["id"]),

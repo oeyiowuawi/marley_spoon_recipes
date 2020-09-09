@@ -1,20 +1,29 @@
 class Recipe
-  attr_accessor :description, :title, :photo_url, :chef_name, :tags
+  attr_accessor :id, :description, :title, :photo_url, :chef_name, :tags
 
-  def initialize(description:, title:, photo_url: "", chef_name: "", tags: [])
+  def initialize(id:, description:, title:, photo_url: "", chef_name: "", tags: [], datastore: nil)
+    @id = id
     @description = description
     @title = title
     @photo_url = photo_url
     @chef_name = chef_name
     @tags = tags
+    @datastore = datastore || RecipeDataStore.new
   end
 
-  # def self.build(raw_recipes)
-  #   recipes = []
-  #   serializer = RecipesSerializer.new(recipes: raw_recipes)
-  #   serializer.each_serialized_recipe do |serialized_recipe|
-  #     recipes << new(serialized_recipe)
-  #   end
-  #   recipes
-  # end
+  def to_h
+    {
+      id: id, description: description, title: title, photo_url: photo_url,
+      chef_name: chef_name, tags: tags
+    }
+  end
+
+  def save
+    datastore.write(self)
+  end
+
+  private
+
+  attr_reader :datastore
+
 end

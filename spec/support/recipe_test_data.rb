@@ -1,4 +1,10 @@
 module RecipeTestData
+  def recipe_test_db
+    OpenStruct.new do
+      def set(_args)
+      end
+    end
+  end
 
   def recipe_raw_data
     {"sys"=>{"type"=>"Array"},

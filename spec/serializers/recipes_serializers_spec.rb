@@ -54,5 +54,14 @@ describe RecipesSerializer do
 
       expect(recipe).to have_key(:tags)
     end
+
+    it "includeds the recipe id" do
+      serializer = RecipesSerializer.new(recipes: recipe_raw_data)
+
+      result = serializer.to_json
+      recipe = result.first
+
+      expect(recipe).to have_key(:id)
+    end
   end
 end
