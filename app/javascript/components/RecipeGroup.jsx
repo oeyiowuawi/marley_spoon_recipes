@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Recipe from './Recipe'
+import RecipeCard from './RecipeCard'
 
 class RecipeGroup extends Component {
   render() {
     const recipes = this.props.group.map((recipe, index) => {
-      return <Recipe recipe={recipe} key={index} />
+      return <RecipeCard recipe={recipe} key={index} />
     })
     return(
       <div className="row">
