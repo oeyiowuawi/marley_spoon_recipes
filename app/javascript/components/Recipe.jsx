@@ -42,7 +42,10 @@ class Recipe extends Component {
       <h1> {recipe.title} {tags}</h1>
       <hr />
       <div className="card" >
-        <img className="card-img-top" src={recipe.photo_url} alt="Card image cap" />
+        <div className="recipe-image">
+          <img className="card-img-top " src={recipe.photo_url} alt="Card image cap" />
+
+        </div>
         <div className="card-body">
           <p className="card-text">{recipe.description}</p>
           {recipe.chef_name.length > 1 ? (<p className="card-text">chef: {recipe.chef_name}</p>) : null}

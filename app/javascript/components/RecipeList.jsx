@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import lodash from 'lodash';
 import RecipeGroup from "./RecipeGroup"
+import Pagination from "./Pagination"
 
 class RecipeList extends Component {
 
@@ -41,15 +42,28 @@ class RecipeList extends Component {
     return this.state.recipes.slice(firstIndex, lastIndex)
   }
 
+  paginate = (number, event) => {
+    event.preventDefault();
+    this.setState({
+      currentPage: number
+    })
+  }
+
   render() {
     let groupedRecipeList = [];
     let result = [];
+    let pagination = null
     if(this.state.recipes.length > 1) {
       let currentRecipes = this.getCurrentRecipes();
       groupedRecipeList = lodash.chunk(currentRecipes, 4);
       result = groupedRecipeList.map((groupedList, index) => {
         return <RecipeGroup group={groupedList} key={index} />
       })
+
+      pagination = <Pagination perPage={this.state.perPage}
+                               totalRecipes={this.state.recipes.length}
+                               paginate={this.paginate}
+                               currentPage={this.state.currentPage} />
     }
 
     return(
@@ -57,7 +71,7 @@ class RecipeList extends Component {
          <h1> Marley Spoon Recipes</h1>
          <hr />
         { result }
-       {/* { pagination } */}
+       { pagination }
       </div>
     )
   }
