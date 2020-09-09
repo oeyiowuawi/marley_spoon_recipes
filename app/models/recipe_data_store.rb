@@ -12,7 +12,11 @@ class RecipeDataStore
   def read_all
     key_store = []
     retrieve_all_keys(key_store)
-    db.mget(key_store.flatten).compact
+    if key_store.present?
+      db.mget(key_store.flatten).compact
+    else
+      []
+    end
   end
 
   def retrieve(key)

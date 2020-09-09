@@ -11,12 +11,14 @@ class Recipe
     @datastore = datastore || RecipeDataStore.new
   end
 
-  def to_h
+  def to_h(*args)
     {
       id: id, description: description, title: title, photo_url: photo_url,
       chef_name: chef_name, tags: tags
     }
   end
+
+  alias :as_json :to_h
 
   def ==(other_recipe)
     id == other_recipe.id && description == other_recipe.description &&
