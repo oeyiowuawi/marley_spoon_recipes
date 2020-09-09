@@ -14,16 +14,26 @@ describe RecipeProcessor do
       expect(contentful_service).to have_received(:fetch_recipes)
     end
 
-    it "serailizes the data so as to include the linked entries" do
+    it "builds the recipe objects" do
       stub_contentfull_service
-      recipe_serializer = RecipesSerializer.new(recipes: recipe_raw_data)
-      allow(RecipesSerializer).to receive(:new).and_return(recipe_serializer)
-      allow(recipe_serializer).to receive(:to_json).and_call_original
+      allow(Recipe).to receive(:build).and_call_original
       processor = RecipeProcessor.new
 
       processor.call
 
-      expect(recipe_serializer).to have_received(:to_json)
+      expect(Recipe).to have_received(:build)
+    end
+
+    it "saves the recipe" do
+      stub_contentfull_service
+      recipe = Recipe.new
+      allow(Recipe).to receive(:build).and_return([recipe])
+      allow(recipe).to receive(:save)
+      processor = RecipeProcessor.new
+
+      processor.call
+
+      expect(recipe).to receive(:save)
     end
   end
 

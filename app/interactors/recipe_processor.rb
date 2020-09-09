@@ -13,14 +13,14 @@ class RecipeProcessor
 
   private
 
-  attr_reader :contentful_service, :recipes, :recipe_json
+  attr_reader :contentful_service, :recipes, :raw_recipe
 
   def fetch_recipes
-    @recipes = contentful_service.fetch_recipes
+    @raw_recipe = contentful_service.fetch_recipes
   end
 
   def serialize_recipes
-    @recipe_json = RecipesSerializer.new(recipes: @recipes).to_json
+    @recipes = Recipe.build(@raw_recipe)
   end
 
 end

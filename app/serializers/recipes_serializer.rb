@@ -7,19 +7,30 @@ class RecipesSerializer
 
   def to_json
     raw_recipe_data.map do |recipe|
-      {
-        description: recipe["fields"]["description"],
-        title: recipe["fields"]["title"],
-        photo_url: extract_photo_url(recipe["fields"]["photo"]["sys"]["id"]),
-        chef_name: extract_chef_name(recipe),
-        tags: extract_tags(recipe)
-      }
+      process recipe 
+    end
+  end
+
+  def each_serialized_recipe(&block)
+    raw_recipe_data.each do |raw_recipe|
+      recipe = process(raw_recipe)
+      block.call(recipe)
     end
   end
 
   private
 
   attr_reader :raw_recipe_data, :included_entry_data, :included_asset_data
+
+  def process(recipe)
+    {
+      description: recipe["fields"]["description"],
+      title: recipe["fields"]["title"],
+      photo_url: extract_photo_url(recipe["fields"]["photo"]["sys"]["id"]),
+      chef_name: extract_chef_name(recipe),
+      tags: extract_tags(recipe)
+      }
+  end
 
   def find_included_asset(asset_id)
     included_asset_data.find do |asset| 
