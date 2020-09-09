@@ -51,14 +51,14 @@ class RecipesSerializer
   end
 
   def extract_chef_name(recipe)
-    return "" if recipe["fields"]["chef"].empty?
+    return "" unless recipe["fields"]["chef"].present?
     id = recipe["fields"]["chef"]["sys"]["id"]
     chef = find_included_entry(id)
     chef["fields"]["name"]
   end
 
   def extract_tags(recipe)
-    return [] if recipe["fields"]["tags"].empty?
+    return [] unless recipe["fields"]["tags"].present?
     recipe["fields"]["tags"].map do |raw_tag|
       id = raw_tag["sys"]["id"]
       tag = find_included_entry(id)

@@ -25,6 +25,7 @@ class RecipeProcessor
     serializer.each_serialized_recipe do |serialized_recipe|
       Recipe.new(serialized_recipe).save
       @recipe_count += 1
+      puts "."
     end
   end
 
