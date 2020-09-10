@@ -1,24 +1,34 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Marley Spon recipe
 
-Things you may want to cover:
+This app pulls the recipes from the contentful api and stores it in a local redis db and then displays it for users.
 
-* Ruby version
+## Installation
 
-* System dependencies
+You need to have ruby and rails installed. also you need to have redis installed and running before attempting to run this application.
 
-* Configuration
+After you have confirmed you have the above installed ready to go, pull down this repo and run
 
-* Database creation
+$ bundle install
 
-* Database initialization
+then you need to run 
 
-* How to run the test suite
+$ yarn install
 
-* Services (job queues, cache servers, search engines, etc.)
+Then you need to run:
 
-* Deployment instructions
+$ bin/rails marley_spoon:sync_recipes
 
-* ...
+when this has finished, you need to run
+
+$ ./bin/webpack-dev-server
+
+and
+
+$ bin/rails server
+
+Then you can proceed to 
+```
+  localhost:3000
+```
