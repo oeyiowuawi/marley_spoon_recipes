@@ -16,6 +16,13 @@ then you need to run
 
     $ yarn install
 
+You should then add a .env file and add these keys
+```
+SPACE_ID='contentful_space_id'
+ENVIRONMENT_ID='contentful_environment'
+ACCESS_TOKEN='contentful_access_token'
+```
+
 Then you need to run:
 
     $ bin/rails marley_spoon:sync_recipes
@@ -27,6 +34,7 @@ when this has finished, you need to run
 and
 
     $ bin/rails server
+
 
 Then you can proceed to 
 ```
