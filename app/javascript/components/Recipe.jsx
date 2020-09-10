@@ -25,10 +25,8 @@ class Recipe extends Component {
   }
 
   render() {
-    console.log(this.props, "this is the props")
     let { recipe } = this.state;
     let tags = []
-    console.log(this.props.match.params.id, "this is the props")
     if(recipe.tags) {
       tags = recipe.tags.map((tag, index) => {
         return <span className="badge badge-secondary" key={index}>{tag}</span>

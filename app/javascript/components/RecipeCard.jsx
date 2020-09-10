@@ -6,7 +6,6 @@ class RecipeCard extends Component {
 
   onClickHandler = (recipe, event) => {
     event.preventDefault();
-    console.log(this.props, "yuiopoiuyyuiooi")
     this.props.history.push(
       "/recipes/" + recipe.id
     )
