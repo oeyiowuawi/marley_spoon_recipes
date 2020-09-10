@@ -10,23 +10,23 @@ You need to have ruby and rails installed. also you need to have redis installed
 
 After you have confirmed you have the above installed ready to go, pull down this repo and run
 
-$ bundle install
+    $ bundle install
 
 then you need to run 
 
-$ yarn install
+    $ yarn install
 
 Then you need to run:
 
-$ bin/rails marley_spoon:sync_recipes
+    $ bin/rails marley_spoon:sync_recipes
 
 when this has finished, you need to run
 
-$ ./bin/webpack-dev-server
+    $ ./bin/webpack-dev-server
 
 and
 
-$ bin/rails server
+    $ bin/rails server
 
 Then you can proceed to 
 ```
